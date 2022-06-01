@@ -8,7 +8,29 @@
   </head>
   <body>
     <p><a href="index.html">Go back</a></p>
+<style>
 
+  button {
+  border: 1px solid #0066cc;
+  background-color: #0099cc;
+  color: #ffffff;
+  padding: 5px 10px;
+}
+
+button:hover {
+  border: 1px solid #0099cc;
+  background-color: #00aacc;
+  color: #ffffff;
+  padding: 5px 10px;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+</style>
     <button type="button" data-start>Start</button>
     <button type="button" data-stop>Stop</button>
 

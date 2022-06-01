@@ -1,20 +1,19 @@
 import flatpickr from "flatpickr";
 // Дополнительный импорт стилей
 import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from 'notiflix';
 require("flatpickr/dist/themes/material_blue.css");
+
 const refs = {
-    days : document.querySelector('[data-days]'),
-    hours : document.querySelector('[data-hours]'),
- minutes: document.querySelector('[data-minutes]'),
- seconds :document.querySelector('[data-seconds]'),
+  days : document.querySelector('[data-days]'),
+  hours : document.querySelector('[data-hours]'),
+  minutes: document.querySelector('[data-minutes]'),
+  seconds: document.querySelector('[data-seconds]'),
+  input : document.querySelector("#datetime-picker"),
+  startBtn :document.querySelector('[data-start]')
 }
-const input = document.querySelector("#datetime-picker");
-const startBtn = document.querySelector('[data-start]');
-
-
-
-
 let res = null;
+let formData;
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -23,26 +22,27 @@ const options = {
     onClose(selectedDates) {
       
       if (selectedDates[0] < options.defaultDate) {
-      alert("Please choose a date in the future")
+      Notiflix.Notify.failure("Please choose a date in the future")
       } else {
-          startBtn.removeAttribute("disabled");
+        refs.startBtn.removeAttribute("disabled");
+  
         res=selectedDates[0]-options.defaultDate
       }
 
   },
 };
-let formData
+
+
 const timer = {
     start() {
-
         const startTime = Date.now();
-       setInterval(() => {
-       
-           const currentTime = Date.now() - startTime;
-    
-            formData = convertMs(res - currentTime);
-         
-           upgradeRes(formData)
+        setInterval(() => {
+
+        const currentTime = Date.now() - startTime;
+
+        formData = convertMs(res - currentTime);
+
+        upgradeRes(formData)
      
        }, 1000)
     }
@@ -56,10 +56,10 @@ function upgradeRes({ days, hours, minutes, seconds }  ) {
     refs.days.textContent=days
     
 }
-startBtn.addEventListener("click",timer.start)
+refs.startBtn.addEventListener("click",timer.start)
 
 
-flatpickr(input,options)
+flatpickr(refs.input,options)
 
 
 function convertMs(ms) {
