@@ -32,17 +32,23 @@ const options = {
   },
 };
 
-
+let interval;
 const timer = {
     start() {
         const startTime = Date.now();
-        setInterval(() => {
+       interval= setInterval(() => {
 
         const currentTime = Date.now() - startTime;
-
+        const timerTime = Math.floor((res - currentTime)/1000);
+         
         formData = convertMs(res - currentTime);
 
-        upgradeRes(formData)
+          upgradeRes(formData);
+          if (timerTime === 0) {
+            
+            clearInterval(interval);
+            return
+          }
      
        }, 1000)
     }
